@@ -10,9 +10,9 @@ from datetime import datetime
 from typing import Optional
 from fastapi import APIRouter, HTTPException, Query, Depends
 
-from app.models import SensorData, TriggerResponse
-from app.services.kafka_service import KafkaManager
-from app.services.sensor_simulator import SensorSimulator
+from models import SensorData, TriggerResponse
+from services.kafka_service import KafkaManager
+from services.sensor_simulator import SensorSimulator
 
 
 logger = logging.getLogger(__name__)

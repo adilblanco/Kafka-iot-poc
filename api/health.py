@@ -10,8 +10,8 @@ from datetime import datetime
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 
-from app.models import HealthResponse
-from app.services.kafka_service import KafkaManager, KafkaHealthChecker
+from models import HealthResponse
+from services.kafka_service import KafkaManager, KafkaHealthChecker
 
 
 logger = logging.getLogger(__name__)

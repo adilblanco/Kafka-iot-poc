@@ -9,7 +9,8 @@ de l'application.
 import json
 import logging
 from typing import List, Optional
-from kafka import KafkaProducer, KafkaAdminClient, NewTopic
+from kafka import KafkaProducer, KafkaAdminClient
+from kafka.admin import NewTopic
 from kafka.errors import KafkaError
 
 
