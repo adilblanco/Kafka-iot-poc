@@ -76,6 +76,9 @@ async def lifespan(app: FastAPI):
     global sensor_simulator
     sensor_simulator = SensorSimulator()
     
+    # Configuration des routeurs maintenant que tous les services sont initialisés
+    setup_routers(app)
+    
     logger.info("All services initialized successfully")
     logger.info(f"API available at: http://{config.service.host}:{config.service.port}")
     logger.info(f"Documentation: http://{config.service.host}:{config.service.port}/docs")
@@ -203,12 +206,6 @@ def setup_error_handlers(app: FastAPI):
 
 # Création de l'application
 app = create_application()
-
-# Setup des routeurs après création de l'app mais avant le premier appel
-@app.on_event("startup")
-async def setup_routers_on_startup():
-    """Setup des routeurs au démarrage après initialisation des services."""
-    setup_routers(app)
 
 
 if __name__ == "__main__":

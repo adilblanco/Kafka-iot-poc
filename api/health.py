@@ -16,9 +16,6 @@ from services.kafka_service import KafkaManager, KafkaHealthChecker
 
 logger = logging.getLogger(__name__)
 
-# Création du routeur pour les endpoints de santé
-router = APIRouter(prefix="/health", tags=["Health"])
-
 
 def create_health_router(kafka_manager: KafkaManager) -> APIRouter:
     """
@@ -30,6 +27,9 @@ def create_health_router(kafka_manager: KafkaManager) -> APIRouter:
     Returns:
         Routeur configuré pour les endpoints de santé
     """
+    
+    # Création du routeur pour les endpoints de santé
+    router = APIRouter(prefix="/health", tags=["Health"])
     
     @router.get(
         "",

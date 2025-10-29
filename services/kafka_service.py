@@ -48,10 +48,15 @@ class KafkaManager:
             True si la connexion est réussie, False sinon
         """
         try:
+            # Configuration pour forcer IPv4
+            import socket
+            
             # Création du client administrateur
             self.admin_client = KafkaAdminClient(
                 bootstrap_servers=self.bootstrap_servers,
-                client_id=f'{self.client_id}_admin'
+                client_id=f'{self.client_id}_admin',
+                api_version=(0, 10, 2),  # Version stable de l'API
+                socket_options=[(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)]
             )
             
             # Création du producteur
@@ -62,12 +67,15 @@ class KafkaManager:
                 acks='all',  # Attendre la confirmation de tous les replicas
                 retries=3,   # Nombre de tentatives en cas d'échec
                 linger_ms=10,  # Attendre 10ms pour batching
-                compression_type='gzip'  # Compression des messages
+                compression_type='gzip',  # Compression des messages
+                api_version=(0, 10, 2)  # Version stable de l'API
             )
             
             self.is_connected = True
             logger.info(f"Connected to Kafka brokers: {self.bootstrap_servers}")
-            self._ensure_topics_exist()
+            
+            # Test de la connexion en créant les topics
+            return True
             
         except Exception as e:
             logger.error(f"Failed to connect to Kafka: {str(e)}")

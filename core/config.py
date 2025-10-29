@@ -77,13 +77,13 @@ class ConfigManager:
                 'Système de simulation de capteurs IoT pour bâtiment intelligent'
             ),
             host=os.getenv('HOST', '0.0.0.0'),
-            port=int(os.getenv('PORT', '5000')),
+            port=int(os.getenv('PORT', '5001')),
             log_level=os.getenv('LOG_LEVEL', 'INFO').upper(),
             debug=os.getenv('DEBUG', 'false').lower() == 'true'
         )
         
         # Configuration Kafka
-        bootstrap_servers_str = os.getenv('KAFKA_BOOTSTRAP_SERVERS', 'kafka:29092')
+        bootstrap_servers_str = os.getenv('KAFKA_BOOTSTRAP_SERVERS', '127.0.0.1:9092')
         bootstrap_servers = [server.strip() for server in bootstrap_servers_str.split(',')]
         
         kafka_config = KafkaConfig(
